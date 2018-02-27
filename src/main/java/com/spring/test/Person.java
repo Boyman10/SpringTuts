@@ -3,7 +3,7 @@ package com.spring.test;
 public class Person {
 
 	private int id;
-	private String name;
+	private String name,login;
 	private int taxId;
 	
 	private Address address;
@@ -35,11 +35,29 @@ public class Person {
 	}
 	@Override
 	public String toString() {
-		return "Person [id=" + id + ", name=" + name + ", taxId=" + taxId + ", address=" + address + "]";
+		return "Person [id=" + id + ", login = " + login + ", name=" + name + ", taxId=" + taxId + ", address=" + address + "]";
 	}
 	
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getLogin() {
+		return login;
+	}
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
 

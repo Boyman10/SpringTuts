@@ -2,7 +2,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 	<!--  dependency injection here  -->
 	<bean id="person" class="com.spring.test.Person" scope="singleton"
@@ -11,6 +13,8 @@
 		<constructor-arg value="Mary" name="name" type="String"></constructor-arg>
 		<property value="321" name="taxId"></property>
 		<property name="address" ref="address"></property>
+		<property name="login" value="${jdbc.user}"></property>
+		<property name="name" value="${jdbc.password}"></property>
 	</bean>
 	<bean id="person2" class="com.spring.test.Person" scope="singleton"
 		factory-method="createPerson" factory-bean="personfactory">
@@ -33,4 +37,16 @@
 	
 		
 	<bean id="personfactory" class="com.spring.test.PersonFactory"></bean>
+	
+	<context:property-placeholder
+		location="com/spring/props/jdbc.properties" />
+	<!--  useful when not in a web app = connection pool -->
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp2.BasicDataSource"
+		destroy-method="close">
+	<property name="driverClassName" value="${jdbc.driver}"></property>
+	<property name="url" value="${jdbc.url}"></property>
+	<property name="username" value="${jdbc.user}"></property>
+	<property name="password" value="${jdbc.password}"></property>
+	</bean>
 </beans>

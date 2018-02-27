@@ -1,5 +1,7 @@
 package com.spring.test;
 
+import java.util.List;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -19,6 +21,17 @@ public class App {
 		Address address2 = (Address)context.getBean("address2");
 		
 		System.out.println(address2);
+		
+		
+		OffersDAO offersDAO = (OffersDAO)context.getBean("offersDAO");
+		List<Offer> offers = offersDAO.getOffers();
+		
+		for (Offer offer:offers) {
+			
+			System.out.println(offer);
+		}
+		
+		
 
 		// Close the container to avoid resources leak
 		((ClassPathXmlApplicationContext)context).close();
