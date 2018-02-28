@@ -1,5 +1,6 @@
 package com.spring.test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
@@ -35,6 +36,30 @@ public class App {
 
 				System.out.println(offer);
 			}
+			
+			Offer offer = offersDAO.getOffer(1);
+			
+			System.out.println("Should be bob " + offer);
+			
+			
+			
+			
+			// Creating batches queries :
+			List<Offer> myOffers = new ArrayList<Offer>();
+			myOffers.add(new Offer("Dave","email@org.ocm","Whatever ..."));
+			myOffers.add(new Offer("Bool","sdsdsd@org.ocm","what kind of offer??"));
+			myOffers.add(new Offer(0,"Fake","no@org.ocm","not working"));
+			
+			int[] rvals = offersDAO.create(myOffers);
+			
+			for(int value: rvals) {
+				
+				System.out.println("Updated " + value + " rows.");
+			}
+			
+			
+			
+			
 		}catch (CannotGetJdbcConnectionException ex) {
 			System.out.println("Cannot get DB connection");
 		}

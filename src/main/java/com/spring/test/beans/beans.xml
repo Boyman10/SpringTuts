@@ -3,13 +3,15 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<context:component-scan base-package="com.spring.test">
 	</context:component-scan>
 
-	<!--  dependency injection here  -->
+	<!-- dependency injection here -->
 	<bean id="person" class="com.spring.test.Person" scope="singleton"
 		factory-method="getInstance">
 		<constructor-arg value="777" name="id" type="int"></constructor-arg>
@@ -31,32 +33,36 @@
 		<constructor-arg name="street" value="1 place Lane"></constructor-arg>
 		<constructor-arg name="postcode" value="511100"></constructor-arg>
 	</bean>
-	
-	<!--  using p: instead of property tags -->
-	<bean id="address2" class="com.spring.test.Address" p:street="45 rue mom" p:postcode="40220">
-		
+
+	<!-- using p: instead of property tags -->
+	<bean id="address2" class="com.spring.test.Address" p:street="45 rue mom"
+		p:postcode="40220">
+
 
 	</bean>
-	
-		
+
+
 	<bean id="personfactory" class="com.spring.test.PersonFactory"></bean>
-	
-	<context:property-placeholder
-		location="com/spring/props/jdbc.properties" />
-	
-	
-	<!--  useful when not in a web app = connection pool -->
-	<bean id="dataSource"
-		class="org.apache.commons.dbcp2.BasicDataSource"
+
+	<context:property-placeholder location="com/spring/props/jdbc.properties" />
+
+
+	<!-- useful when not in a web app = connection pool -->
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		destroy-method="close">
-		
-	<!-- NO MORE NEEDED @deprecated
-	
-	<property name="driverClassName" value="${jdbc.driver}"></property> -->
-	<property name="url" value="${jdbc.url}"></property>
-	<property name="username" value="${jdbc.user}"></property>
-	<property name="password" value="${jdbc.password}"></property>
+
+		<!-- NO MORE NEEDED @deprecated <property name="driverClassName" value="${jdbc.driver}"></property> -->
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.user}"></property>
+		<property name="password" value="${jdbc.password}"></property>
 	</bean>
-	
 	<context:annotation-config></context:annotation-config>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+
+	<tx:annotation-driven />
 </beans>
