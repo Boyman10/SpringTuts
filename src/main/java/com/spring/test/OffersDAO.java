@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component("offersDAO")
 public class OffersDAO {
@@ -82,7 +83,9 @@ public class OffersDAO {
 	
 	/**
 	 * Batch update which can be supplied in another dedicated maven module
+	 * implementing transactional within the queries
 	 */
+	@Transactional
 	public int[] create(List<Offer> offers) {
 		
 		// Very useful method :
