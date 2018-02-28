@@ -23,7 +23,7 @@ public class App {
 		System.out.println(address2);
 		
 		
-		OffersDAO offersDAO = (OffersDAO)context.getBean("offersDAO");
+		OffersDAO offersDAO = (OffersDAO)context.getBean("OffersDAO");
 		List<Offer> offers = offersDAO.getOffers();
 		
 		for (Offer offer:offers) {
